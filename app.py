@@ -59,7 +59,7 @@ def _(mo, np, pd):
     @mo.cache()
     def crear_df_raw():
         df_raw = pd.read_parquet(
-            r"D:\Fuentes de Datos (csv,parquet,xlsx, etc)\PARQUET\dld_sales_transactions.parquet"
+            "https://github.com/Gbarrantes25/WaterQuality/raw/refs/heads/main/dld_sales_transactions.parquet"
         )
         return df_raw
 
