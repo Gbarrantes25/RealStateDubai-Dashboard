@@ -128,10 +128,10 @@ def _(mo, np, pd):
             ]
         ].astype("category")
 
-        return df.head(10)
+        return df
 
     df = crear_df()
-    df
+    df.head(10)
     return df, df_anos
 
 
