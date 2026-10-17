@@ -59,7 +59,7 @@ def _(mo, np, pd):
     @mo.cache()
     def crear_df_raw():
         df_raw = pd.read_parquet(
-            "https://github.com/Gbarrantes25/WaterQuality/raw/refs/heads/main/dld_sales_transactions.parquet"
+            r"D:\Fuentes de Datos (csv,parquet,xlsx, etc)\PARQUET\dld_sales_transactions.parquet"
         )
         return df_raw
 
@@ -131,7 +131,7 @@ def _(mo, np, pd):
         return df
 
     df = crear_df()
-    df.head()
+    df
     return df, df_anos
 
 
@@ -205,7 +205,25 @@ def _(crear_tendencia_preciomq_area, mo, slicer_area):
 @app.cell(hide_code=True)
 def _(mo):
     mo.accordion(
-        {"Expandir": mo.md("<ul><li>gf</li><li>gf</li></ul>")}, expanded=False
+        {
+            "Hallazgos (ver)": mo.md(
+                """
+            <ul>
+            <li>Jumeirah Second -> 2026 máximo histórico -> USD 8121.42 por encima de la media.</li>
+            <li>Um Suqaim First -> 2026 máximo histórico -> USD 5410.53 por encima de la media.</li>
+            <li>Ras Al Khor Industrial Third -> 2026 máximo histórico -> USD 3905.88 por encima de la media.</li>
+            <li>Al Goze Industrial Third -> 2026 máximo histórico -> USD 3585.11 por encima de la media.</li>
+            <li>Al Safouh First -> 2026 máximo histórico -> USD 2847.41 por encima de la media.</li>
+            <li>Al Wasl -> 2026 máximo histórico -> USD 2670.65 por encima de la media.</li>
+            <li>Jumeirah First -> 2026 máximo histórico -> USD 2619.31 por encima de la media.</li>
+            <li>Nad Al Shiba First -> 2026 máximo histórico -> USD 2399.27 por encima de la media.</li>
+            <li>Al Karama -> 2026 máximo histórico -> USD 2275.47 por encima de la media.</li>
+            <li>Saih Shuaib 1 -> 2026 máximo histórico -> USD 2203.38 por encima de la media.</li>
+            </ul>
+            """
+            )
+        },
+        expanded=False,
     )
     return
 
@@ -264,6 +282,23 @@ def _(df, df_anos, go, pd):
         return fig
 
     crear_tendencia_venta_registro()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.accordion(
+        {
+            "Hallazgos (ver)": mo.md(
+                """
+                <ul>
+                <li>Históricamente los ingresos por propiedades listas para entregar supera a las de preventas.</li>
+                <li>En lo que va del año el valor de venta de los "Ready" y "Off-Plan" van 100B y 180B respectivamente por debajo del 2025. </li>
+                </ul>
+                """
+            )
+        }
+    )
     return
 
 
@@ -340,6 +375,22 @@ def _(df, df_anos, go, pd):
 
 @app.cell(hide_code=True)
 def _(mo):
+    mo.accordion(
+        {
+            "Hallazgos (ver)": mo.md(
+                """
+                <ul>
+                <li>En los últimos 5 años las propiedades "Villa" y "Building" están creciendo de manera acelerada en el precio por m², mientras que "Land" y "Unit" se mantienen.</li>
+                </ul>
+                """
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
     mo.md(r"""
     ### 4. ¿Cuál es la tendencia histórica del precio de venta para cada tipo de uso autorizado?
     """)
@@ -406,6 +457,23 @@ def _(df, df_anos, go, pd):
 
 @app.cell(hide_code=True)
 def _(mo):
+    mo.accordion(
+        {
+            "Hallazgos (ver)": mo.md(
+                """
+        <ul>
+        <li>Si bien el año pasado fue un pico para todas las propiedades de uso autorizado, en lo que va del año se aprecia una caída en todo, en especial en el Residencial.</li>
+        <li>Residencial es la categoría que supera entre 100B y 200B a las demás categorías en ventas.</li>
+        </ul>
+        """
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
     mo.md(r"""
     ### 5. ¿Cuál es la variación porcentual de los últimos 5 años del precio de venta por tipo de registro?
     """)
@@ -426,7 +494,7 @@ def _(df, mo):
 @app.cell(hide_code=True)
 def _(df, go, np, pd, selector_registro):
     def crear_df_quinquenio():
-        ano_min = df["Fecha_Registro"].max() - 4
+        ano_min = df["Fecha_Registro"].dt.year.max() - 4
         lista_quinquenio = pd.period_range(
             start=ano_min, periods=5, freq="Y-DEC"
         )
@@ -497,6 +565,23 @@ def _(crear_variacion_venta_quinquenio_registro, mo, selector_registro):
 
 @app.cell(hide_code=True)
 def _(mo):
+    mo.accordion(
+        {
+            "Hallazgos (ver)": mo.md(
+                """
+        <ul>
+        <li>En el presente año vemos una caida en las ventas en "Ready" y "Off-Plan" del 49% y 37% respecto al 2025.</li>
+        <li>Las propiedades "Ready" hasta el año pasado parecía que se estaba recuperando, pero no fue así. Sin embargo, "Off-Plan" si mantiene su tendencia a la baja en las ventas.</li>
+        </ul>
+        """
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
     mo.md(r"""
     ### 6. ¿Qué áreas son parte del 80% de las ventas del año 2026?
     """)
@@ -553,12 +638,13 @@ def _(df, go, selector_anos):
             line={"color": "blue", "dash": "dot"},
             yaxis="y2",
             name="%Acc",
+            text=df_venta_filtrado2026["%acc"],
             customdata=df_venta_filtrado2026[["Nombre_Area", "%acc"]],
             hovertemplate="<b>Área: %{customdata[0]}</b><br><b>%Acc: %{customdata[1]}%</b>",
         )
         fig.add_traces([barras, linea])
         fig.update_layout(
-            yaxis2={"overlaying": "y", "side": "right"},
+            yaxis2={"overlaying": "y", "side": "right", "range": [0, 100]},
             title={
                 "text": f"<b>Áreas que conforman el 80% de las Ventas del {selector_anos.value}</b>"
             },
@@ -571,6 +657,22 @@ def _(df, go, selector_anos):
 @app.cell(hide_code=True)
 def _(crear_pareto_ventas_area, mo, selector_anos):
     mo.vstack([selector_anos, crear_pareto_ventas_area()])
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.accordion(
+        {
+            "Hallazgos (ver)": mo.md(
+                """
+        <ul>
+        <li>De las 243 áreas solo el 14% representa el 80% de las ventas en los últimos 5 años.</li>
+        </ul>
+        """
+            )
+        }
+    )
     return
 
 
@@ -661,6 +763,24 @@ def _(card_precio_media, crear_ranking_precioqm_area, mo, selector_anos2):
 
 @app.cell(hide_code=True)
 def _(mo):
+    mo.accordion(
+        {
+            "Hallazgos (ver)": """
+                 <ul>
+                 <li>2026 -> 64 áreas son las que superan la media del precio del m² (USD 1714.84)</li>
+                 <li>2025 -> 54 áreas son las que superan la media del precio del m² (USD 1650.47)</li>
+                 <li>2024 -> 51 áreas son las que superan la media del precio del m² (USD 1523.21)</li>
+                 <li>2023 -> 43 áreas son las que superan la media del precio del m² (USD 1363.15)</li>
+                 <li>2022 -> 37 áreas son las que superan la media del precio del m² (USD 1198.06)</li>
+                 </ul>
+                 """
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
     mo.md(r"""
     ### 8. ¿Cuál es la evolución del volumen de transacciones por año y por tipo de propiedad?
     """)
@@ -724,6 +844,23 @@ def _(df, df_anos, go, pd):
 
 @app.cell(hide_code=True)
 def _(mo):
+    mo.accordion(
+        {
+            "Hallazgos (ver)": mo.md(
+                """
+        <ul>
+        <li>Este año se observa una caída en todos los tiempos de propiedad, excepto en "Building" que mantiene su volumen de transacciones.</li>
+        <li>Hay una caída en "Unit" de casi el 40% con respecto al año 2025.</li>
+        </ul>
+        """
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
     mo.md(r"""
     ### 9. ¿Cuál es el ranking de las 15 áreas con mayor crecimiento del precio por m² en los últimos 5 años?
     """)
@@ -740,8 +877,8 @@ def _(df, df_quinquenio, go):
         def crear_df_anos_filtrados():
             anos_lista = [ano_min, ano_max]
             df_filtro = df.loc[
-                df["Fecha_Registro"].astype(str).isin(anos_lista)
-            ]
+                df["Fecha_Registro"].dt.year.astype(str).isin(anos_lista)
+            ].copy()
             df_pivot = df_filtro.pivot_table(
                 values="Precio_m2",
                 index="Nombre_Area",
@@ -749,7 +886,7 @@ def _(df, df_quinquenio, go):
                 aggfunc="median",
             )
             df_pivot.columns = df_pivot.columns.astype(str)
-            df_resultado = df_pivot.loc[df_pivot[ano_min] > 0]
+            df_resultado = df_pivot.loc[df_pivot[ano_min] > 0].copy()
             df_resultado["%Crecimiento"] = (
                 (df_resultado[ano_max] - df_resultado[ano_min])
                 / df_resultado[ano_min]
@@ -783,6 +920,22 @@ def _(df, df_quinquenio, go):
         return fig
 
     crear_ranking_crecimiento_preciomq()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.accordion(
+        {
+            "Hallazgos (ver)": mo.md(
+                """
+        <ul>
+        <li>Todos las áreas de este ranking (como mínimo) han tripicado el Precio del m² en los últimos 5 años.</li>
+        </ul>
+        """
+            )
+        }
+    )
     return
 
 
@@ -880,6 +1033,25 @@ def _(df, go, make_subplots):
 
 @app.cell(hide_code=True)
 def _(mo):
+    mo.accordion(
+        {
+            "Hallazgos (ver)": mo.md(
+                """
+        <ul>
+        <li>Villa -> La venta está moderadamente correlacionada con el precio del m².</li>
+        <li>Land -> Sus correlaciones son débiles.</li>
+        <li>Building -> La venta está moderadamente correlacionada con el precio del m². El m² es una correlación inversa al precio del m².</li>
+        <li>Unit -> La venta está moderadamente correlacionada con el precio del m² y lo mismo el m² con la venta.</li>
+        </ul>
+        """
+            )
+        }
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
     mo.md(r"""
     ### 11. ¿Cuál es la distribución del precio por m² por tipo de propiedade en los últimos 3 años?
     """)
@@ -949,6 +1121,23 @@ def _(df, df_anos, go, make_subplots, np, pd):
         return fig
 
     crear_distribucion_histograma_propiedad()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.accordion(
+        {
+            "Hallazgos (ver)": mo.md(
+                """
+        <ul>
+        <li>El precio del m² en todos los tipos de propiedad se intensifican en el grupo 2.</li>
+        <li>Solo "Unit" tiene cierto volumen de datos en el grupo 1.</li>
+        </ul>
+        """
+            )
+        }
+    )
     return
 
 
@@ -1060,6 +1249,23 @@ def _(df, df_anos, go, pd):
 @app.cell(hide_code=True)
 def _(linea_hist, mo, scatter_hist):
     mo.vstack([scatter_hist, linea_hist])
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.accordion(
+        {
+            "Hallazgos (ver)": mo.md(
+                """
+        <ul>
+        <li>En los últimos dos años el preico por m² entre los inmuebles comerciales y residenciales se están equiparando como en el 2014-2015.</li>
+        <li>El volumen transaccional de las propiedades comerciales se mantiene, mientras que las residenciales caen en 80k respecto al año 2025. La tendencia de las propiedades residenciales suelen ser más volátiles como se visualiza en el gráfico.</li>
+        </ul>
+        """
+            )
+        }
+    )
     return
 
 
