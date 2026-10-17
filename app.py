@@ -128,7 +128,7 @@ def _(mo, np, pd):
             ]
         ].astype("category")
 
-        return df
+        return df.head(10)
 
     df = crear_df()
     df
