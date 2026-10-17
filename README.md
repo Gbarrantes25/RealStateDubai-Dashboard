@@ -76,7 +76,10 @@ El notebook responde 12 preguntas de negocio, cada una con su visualización y u
 <details>
   <summary>Dashboard</summary>
 
-  <!-- Agrega aquí tus capturas de pantalla -->
+  <img width="1390" height="575" alt="image" src="https://github.com/user-attachments/assets/f166450b-66af-4c6b-89dd-12c82ae38748" />
+  <img width="1367" height="940" alt="image" src="https://github.com/user-attachments/assets/2d468ba8-5f86-4d77-a1b0-cb7f544f0ff4" />
+  <img width="1396" height="727" alt="image" src="https://github.com/user-attachments/assets/402e06f2-0a7d-4cbf-863a-3f1bf4efd1e6" />
+
 
 </details>
 
