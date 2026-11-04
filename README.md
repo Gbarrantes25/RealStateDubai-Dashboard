@@ -86,4 +86,7 @@ El notebook responde 12 preguntas de negocio, cada una con su visualización y u
 ## 👤 Autor
 - Giancarlo Barrantes
 - Lima, Perú
-- [Linkedin](https://www.linkedin.com/in/gb25/)
+- [linkedin.com/in/gb25](https://www.linkedin.com/in/gb25/)
+- [instagram.com/gbarrantes25](https://www.instagram.com/gbarrantes25/)
+- [tiktok.com/@gbarrantes25](https://www.tiktok.com/@gbarrantes25)
+- [youtube.com/@gbarrantes25](https://www.youtube.com/@gbarrantes25)
