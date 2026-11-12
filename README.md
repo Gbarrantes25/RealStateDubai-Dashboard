@@ -189,5 +189,3 @@ Si este proyecto te resultó útil, considera darle una ⭐ en GitHub y comparti
 <div align="center">
    Hecho por <a href="https://gbarrantes25.github.io/">Giancarlo Barrantes</a>
 </div>
-- [tiktok.com/@gbarrantes25](https://www.tiktok.com/@gbarrantes25)
-- [youtube.com/@gbarrantes25](https://www.youtube.com/@gbarrantes25)
